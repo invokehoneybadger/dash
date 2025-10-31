@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🐾 HoneyBadger Swarm Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script>
+    async function refresh() {
+      const res = await fetch('/api/status');
+      const swarm = await res.json();
+      const tbody = document.querySelector('tbody');
+      tbody.innerHTML = '';
+      for (const [id, data] of Object.entries(swarm)) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${id}</td>
+          <td>${data.ip}</td>
+          <td class="${data.connected ? 'ok' : 'fail'}">
+            ${data.connected ? '🟢 Online' : '🔴 Offline'}
+          </td>
+          <td>${data.rssi ?? '--'}</td>
+          <td>${data.heap ?? '--'}</td>
+          <td>${data.psram ?? '--'}</td>
+          <td>${data.temp ?? '--'}</td>
+          <td>${data.uptime ?? '--'}</td>
+          <td>${data.motion ? '⚠️ Motion!' : ''}</td>
+          <td><a href="http://${data.ip}" target="_blank">View</a></td>
+        `;
+        tbody.appendChild(row);
+      }
+    }
+    setInterval(refresh, 3000);
+    window.onload = refresh;
+  </script>
+</head>
+<body>
+  <h1>🐾 HoneyBadger Swarm Dashboard</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Eye #</th>
+        <th>IP</th>
+        <th>Status</th>
+        <th>RSSI (dBm)</th>
+        <th>Heap</th>
+        <th>PSRAM</th>
+        <th>Temp (°C)</th>
+        <th>Uptime (s)</th>
+        <th>Motion</th>
+        <th>Feed</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</body>
+</html>

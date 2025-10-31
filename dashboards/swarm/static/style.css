@@ -1,0 +1,23 @@
+body {
+  background: #0e0e0e;
+  color: #eee;
+  font-family: monospace;
+  text-align: center;
+}
+table {
+  margin: 20px auto;
+  border-collapse: collapse;
+  width: 90%;
+  max-width: 1000px;
+}
+th, td {
+  border: 1px solid #222;
+  padding: 8px;
+}
+th {
+  background: #111;
+  color: #9ef01a;
+}
+tr:nth-child(even) { background: #181818; }
+.ok { color: #9ef01a; }
+.fail { color: #ff006e; }
