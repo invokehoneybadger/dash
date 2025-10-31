@@ -1,1 +1,4 @@
-dash.invokehoneybadger.com
+Name: dash
+Type: CNAME
+Value: dash.invokehoneybadger.com
+TTL: 3600
